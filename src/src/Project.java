@@ -1,16 +1,17 @@
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 
 public class Project {
     private final int employeeId;
     private final int projectId;
-    private final Date dateFrom;
-    private final Date dateTo;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
-    public Project(int employeeId, int projectId, Date dateFrom, Date dateTo) {
+    public Project(int employeeId, int projectId, LocalDate dateFrom, LocalDate endDate) {
         this.employeeId = employeeId;
         this.projectId = projectId;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+        this.startDate = dateFrom;
+        this.endDate = endDate;
     }
 
     public int getEmployeeId() {
@@ -21,11 +22,23 @@ public class Project {
         return projectId;
     }
 
-    public Date getDateFrom() {
-        return dateFrom;
+    public LocalDate getDateFrom() {
+        return startDate;
     }
 
-    public Date getDateTo() {
-        return dateTo;
+    public LocalDate getDateTo() {
+        return endDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project project)) return false;
+        return getEmployeeId() == project.getEmployeeId() && getProjectId() == project.getProjectId() && Objects.equals(startDate, project.startDate) && Objects.equals(endDate, project.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmployeeId(), getProjectId(), startDate, endDate);
     }
 }
