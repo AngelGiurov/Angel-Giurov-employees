@@ -1,4 +1,4 @@
-# Employee Longest Worked Together Identifier
+# Longest Employees That Worked Together Identifier
 
 This application is designed to identify the pair of employees who have worked together on common projects for the longest period of time. Running the program in the `Main` method will process the provided `input.csv` file located in the project directory. Alternatively, executing `MainBonusTask` will launch a basic UI interface allowing you to import any CSV file and retrieve the desired output.
 
