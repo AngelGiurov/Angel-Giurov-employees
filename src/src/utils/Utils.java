@@ -141,10 +141,10 @@ public class Utils {
         return date;
     }
 
-    public static String formatDuration(long totalDays) {
-        long years = totalDays / 365;
-        long months = (totalDays % 365) / 30;
-        long days = (totalDays % 365) % 30;
+    public static String formatDuration(final long totalDays) {
+        final long years = totalDays / 365;
+        final long months = (totalDays % 365) / 30;
+        final long days = (totalDays % 365) % 30;
 
         return String.format(DISPLAY_FORMAT, years, months, days);
     }
