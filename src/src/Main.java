@@ -11,7 +11,7 @@ public class Main {
         if (longestPair != null) {
             final String[] employees = longestPair.getKey().split(COMMA);
             final long maxDuration = longestPair.getValue().values().stream().mapToLong(Long::longValue).max().orElse(0);
-            System.out.println(employees[0] + SPACE_COMMAS + employees[1] + SPACE_COMMAS + maxDuration);
+            System.out.println(employees[0] + SPACE_COMMAS + employees[1] + SPACE_COMMAS + formatDuration(maxDuration));
         }
     }
 }

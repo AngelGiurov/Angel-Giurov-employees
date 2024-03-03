@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import static constants.Constants.*;
 
 public class Utils {
@@ -114,7 +113,7 @@ public class Utils {
         if (longestPair != null) {
             final String[] employees = longestPair.getKey().split(COMMA);
             final long maxDuration = longestPair.getValue().values().stream().mapToLong(Long::longValue).max().orElse(0);
-            textArea.setText(employees[0] + SPACE_COMMAS + employees[1] + SPACE_COMMAS + maxDuration);
+            textArea.setText(employees[0] + SPACE_COMMAS + employees[1] + SPACE_COMMAS + formatDuration(maxDuration));
         } else {
             textArea.setText(NO_PAIR_FOUND);
         }
@@ -124,10 +123,7 @@ public class Utils {
                                           final LocalDate dateFrom2, final LocalDate dateTo2) {
         final long duration1 = dateTo1.toEpochDay() - dateFrom1.toEpochDay();
         final long duration2 = dateTo2.toEpochDay() - dateFrom2.toEpochDay();
-        final double years1 = TimeUnit.DAYS.toDays(duration1) / 365.25;
-        final double years2 = TimeUnit.DAYS.toDays(duration2) / 365.25;
-        final double absoluteYears = Math.abs(years1 + years2);
-        return Math.round(absoluteYears);
+        return  duration1 + duration2;
     }
 
     //TODO In future fix multiformat dates
@@ -143,5 +139,13 @@ public class Utils {
             }
         }
         return date;
+    }
+
+    public static String formatDuration(long totalDays) {
+        long years = totalDays / 365;
+        long months = (totalDays % 365) / 30;
+        long days = (totalDays % 365) % 30;
+
+        return String.format(DISPLAY_FORMAT, years, months, days);
     }
 }
