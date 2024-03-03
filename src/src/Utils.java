@@ -48,12 +48,13 @@ public class Utils {
         return longestPair;
     }
 
-    private static long calculateDuration(LocalDate dateFrom1, LocalDate dateTo1, LocalDate dateFrom2, LocalDate dateTo2) {
-        long duration1 = dateTo1.toEpochDay() - dateFrom1.toEpochDay();
-        long duration2 = dateTo2.toEpochDay() - dateFrom2.toEpochDay();
-        double years1 = TimeUnit.DAYS.toDays(duration1) / 365.25;
-        double years2 = TimeUnit.DAYS.toDays(duration2) / 365.25;
-        double absoluteYears = Math.abs(years1 + years2);
+    private static long calculateDuration(final LocalDate dateFrom1, final LocalDate dateTo1,
+                                          final LocalDate dateFrom2, final LocalDate dateTo2) {
+        final long duration1 = dateTo1.toEpochDay() - dateFrom1.toEpochDay();
+        final long duration2 = dateTo2.toEpochDay() - dateFrom2.toEpochDay();
+        final double years1 = TimeUnit.DAYS.toDays(duration1) / 365.25;
+        final double years2 = TimeUnit.DAYS.toDays(duration2) / 365.25;
+        final double absoluteYears = Math.abs(years1 + years2);
         return Math.round(absoluteYears);
     }
 }
