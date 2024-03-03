@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,24 +81,13 @@ public class Utils {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(SPACE_COMMAS);
-                LocalDate dateTo = parts[3].equals(NULL) ? LocalDate.now() : LocalDate.parse(parts[3]);
+                LocalDate dateTo = parts[3].equals(NULL) ? LocalDate.now() : parseDate(parts[3]);
                 projects.add(new Project(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), LocalDate.parse(parts[2]), dateTo));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return projects;
-    }
-
-
-    private static long calculateDuration(final LocalDate dateFrom1, final LocalDate dateTo1,
-                                          final LocalDate dateFrom2, final LocalDate dateTo2) {
-        final long duration1 = dateTo1.toEpochDay() - dateFrom1.toEpochDay();
-        final long duration2 = dateTo2.toEpochDay() - dateFrom2.toEpochDay();
-        final double years1 = TimeUnit.DAYS.toDays(duration1) / 365.25;
-        final double years2 = TimeUnit.DAYS.toDays(duration2) / 365.25;
-        final double absoluteYears = Math.abs(years1 + years2);
-        return Math.round(absoluteYears);
     }
 
     public static JButton getSelectFileButton(final JFrame frame, final JTextArea textArea) {
@@ -127,5 +118,30 @@ public class Utils {
         } else {
             textArea.setText(NO_PAIR_FOUND);
         }
+    }
+
+    private static long calculateDuration(final LocalDate dateFrom1, final LocalDate dateTo1,
+                                          final LocalDate dateFrom2, final LocalDate dateTo2) {
+        final long duration1 = dateTo1.toEpochDay() - dateFrom1.toEpochDay();
+        final long duration2 = dateTo2.toEpochDay() - dateFrom2.toEpochDay();
+        final double years1 = TimeUnit.DAYS.toDays(duration1) / 365.25;
+        final double years2 = TimeUnit.DAYS.toDays(duration2) / 365.25;
+        final double absoluteYears = Math.abs(years1 + years2);
+        return Math.round(absoluteYears);
+    }
+
+    //TODO In future fix multiformat dates
+    public static LocalDate parseDate(final String dateString) {
+        LocalDate date = null;
+        final String[] formats = {"dd-MM-yyyy", "yyyy-MM-dd", "MM-dd-yyyy"};
+        for (final String format : formats) {
+            try {
+                date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(format));
+                break;
+            } catch (DateTimeParseException e) {
+
+            }
+        }
+        return date;
     }
 }

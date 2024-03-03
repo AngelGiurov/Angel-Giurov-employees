@@ -3,7 +3,7 @@ import java.util.*;
 import static constants.Constants.*;
 import static utils.Utils.*;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
         final List<Project> projects = readProjectsFromCSV();
         final Map<String, Map<String, Long>> pairDurations = calculatePairDurations(projects);
